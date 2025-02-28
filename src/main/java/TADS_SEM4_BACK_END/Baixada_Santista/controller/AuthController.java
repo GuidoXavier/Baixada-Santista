@@ -7,8 +7,6 @@ import TADS_SEM4_BACK_END.Baixada_Santista.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,5 +55,32 @@ public class AuthController {
             return ResponseEntity.status(401).body("Erro ao logar: " + e.getMessage());
         }
     }
+
+    @PostMapping("/trocarSenha")
+    public ResponseEntity<String> trocarSenha(@RequestBody @Valid AuthRequestDTO request) {
+        try{
+            var user = userRepository.findByEmail(request.email()).orElse(null);
+
+            if(user == null) {
+                return ResponseEntity.status(404).body("Usuario não encontrado");
+            }
+            if(user.getSenha() == null) {
+                return ResponseEntity.status(400).body("Senha vazia.");
+            }
+            log.info(String.valueOf(passwordEncoder.matches(request.senha(), user.getSenha())));
+
+            if(passwordEncoder.matches(request.senha(),user.getSenha())) {
+                return ResponseEntity.status(400).body("Senhas iguais");
+            }
+            else {
+                user.setSenha(passwordEncoder.encode(request.senha()));
+                userRepository.save(user);
+                return ResponseEntity.status(200).body("Senha alterada");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Erro no servidor: " + e.getMessage());
+        }
+    }
+
 }
 
