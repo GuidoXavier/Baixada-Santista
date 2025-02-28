@@ -71,6 +71,7 @@ public class UserController {
     }
 
     //recebo o usuário pelo ID, procuro o id, se eu achar eu devolvo os dados dele
+    @CrossOrigin
     @GetMapping("/buscar/{id}")
     public ResponseEntity<User> buscarUsuarioPorId(@PathVariable Long id) {
         return repository.findById(id)
@@ -78,6 +79,7 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin
     @PutMapping("/editar/{id}")
     public ResponseEntity<Object> editarUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO requestDTO) {
         Optional<User> usuarioOptional = repository.findById(id);
@@ -102,6 +104,7 @@ public class UserController {
                 } catch (IllegalArgumentException e) {
                     //e ignoro se o role não for válido
                 }
+                usuarioExistente.setAtivo(requestDTO.getAtivo());
 
                 User usuarioSalvo = repository.save(usuarioExistente);
                 return ResponseEntity.ok(new UsuarioResponseDTO(usuarioSalvo));
