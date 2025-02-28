@@ -56,31 +56,31 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/trocarSenha")
-    public ResponseEntity<String> trocarSenha(@RequestBody @Valid AuthRequestDTO request) {
-        try{
-            var user = userRepository.findByEmail(request.email()).orElse(null);
-
-            if(user == null) {
-                return ResponseEntity.status(404).body("Usuario não encontrado");
-            }
-            if(user.getSenha() == null) {
-                return ResponseEntity.status(400).body("Senha vazia.");
-            }
-            log.info(String.valueOf(passwordEncoder.matches(request.senha(), user.getSenha())));
-
-            if(passwordEncoder.matches(request.senha(),user.getSenha())) {
-                return ResponseEntity.status(400).body("Senhas iguais");
-            }
-            else {
-                user.setSenha(passwordEncoder.encode(request.senha()));
-                userRepository.save(user);
-                return ResponseEntity.status(200).body("Senha alterada");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body("Erro no servidor: " + e.getMessage());
-        }
-    }
+//    @PostMapping("/trocarSenha")
+//    public ResponseEntity<String> trocarSenha(@RequestBody @Valid AuthRequestDTO request) {
+//        try{
+//            var user = userRepository.findByEmail(request.email()).orElse(null);
+//
+//            if(user == null) {
+//                return ResponseEntity.status(404).body("Usuario não encontrado");
+//            }
+//            if(user.getSenha() == null) {
+//                return ResponseEntity.status(400).body("Senha vazia.");
+//            }
+//            log.info(String.valueOf(passwordEncoder.matches(request.senha(), user.getSenha())));
+//
+//            if(passwordEncoder.matches(request.senha(),user.getSenha())) {
+//                return ResponseEntity.status(400).body("Senhas iguais");
+//            }
+//            else {
+//                user.setSenha(passwordEncoder.encode(request.senha()));
+//                userRepository.save(user);
+//                return ResponseEntity.status(200).body("Senha alterada");
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.status(401).body("Erro no servidor: " + e.getMessage());
+//        }
+//    }
 
 }
 

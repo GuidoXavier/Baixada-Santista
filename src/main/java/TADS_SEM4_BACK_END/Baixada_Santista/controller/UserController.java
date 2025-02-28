@@ -106,7 +106,11 @@ public class UserController {
 
                 //mudo a senha apenas se for fornecida
                 if (requestDTO.getSenha() != null && !requestDTO.getSenha().isEmpty()) {
-                    usuarioExistente.setSenha(requestDTO.getSenha());
+                    if(passwordEncoder.matches(requestDTO.getSenha(),usuarioExistente.getSenha())) {
+                        return ResponseEntity.badRequest().body("Senhas iguais");
+                    }
+
+                    usuarioExistente.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
                 }
 
                 //novamente converto string role para enum Roles
