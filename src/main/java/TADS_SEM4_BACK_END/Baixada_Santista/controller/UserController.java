@@ -1,11 +1,13 @@
-package TADS_SEM4_BACK_END.Baixada_Santista.Controladores;
+package TADS_SEM4_BACK_END.Baixada_Santista.controller;
 
-import TADS_SEM4_BACK_END.Baixada_Santista.Modelos.Roles;
-import TADS_SEM4_BACK_END.Baixada_Santista.Modelos.User;
-import TADS_SEM4_BACK_END.Baixada_Santista.Repositorios.UserRepository;
+import TADS_SEM4_BACK_END.Baixada_Santista.model.Roles;
+import TADS_SEM4_BACK_END.Baixada_Santista.model.User;
+import TADS_SEM4_BACK_END.Baixada_Santista.repository.UserRepository;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioRequestDTO;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,22 +15,19 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuario")
+@CrossOrigin("*")
 public class UserController {
 
+    private final PasswordEncoder passwordEncoder;
 
     private final UserRepository repository;
 
-    public UserController(UserRepository repository) {
+    public UserController(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @CrossOrigin
-    @PostMapping("/salvar")
-    public ResponseEntity<User> salvarUsuario(@RequestBody User usuario) {
-        return ResponseEntity.ok(repository.save(usuario));
-    }
 
-    @CrossOrigin
     @PostMapping("/cadastrar")
     public ResponseEntity<Object> cadastrarUsuario(@RequestBody UsuarioRequestDTO requestDTO) {
         System.out.println("Recebido: " + requestDTO.getNickname() + ", " + requestDTO.getSenha());
@@ -46,7 +45,7 @@ public class UserController {
             User novoUsuario = new User();
             novoUsuario.setNickname(requestDTO.getNickname());
             novoUsuario.setEmail(requestDTO.getEmail());
-            novoUsuario.setSenha(requestDTO.getSenha());
+            novoUsuario.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
             novoUsuario.setCpf(requestDTO.getCpf());
 
             //converto string role para enum Roles
@@ -71,14 +70,12 @@ public class UserController {
         }
     }
 
-    @CrossOrigin
     @GetMapping("/listarTodos")
     public ResponseEntity<List<User>> listarUsuarios() {
         return ResponseEntity.ok(repository.findAll());
     }
 
     //recebo o usuário pelo ID, procuro o id, se eu achar eu devolvo os dados dele
-    @CrossOrigin
     @GetMapping("/buscar/{id}")
     public ResponseEntity<User> buscarUsuarioPorId(@PathVariable Long id) {
         return repository.findById(id)
@@ -86,7 +83,6 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin
     @PutMapping("/editar/{id}")
     public ResponseEntity<Object> editarUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO requestDTO) {
         Optional<User> usuarioOptional = repository.findById(id);

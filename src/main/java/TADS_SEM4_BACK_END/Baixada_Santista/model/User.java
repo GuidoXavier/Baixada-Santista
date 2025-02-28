@@ -1,6 +1,7 @@
-package TADS_SEM4_BACK_END.Baixada_Santista.Modelos;
+package TADS_SEM4_BACK_END.Baixada_Santista.model;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "USERS")
@@ -21,6 +22,7 @@ public class User {
     private String email;
 
     @Column(unique = true, nullable = false)
+    @CPF(message = "O cpf informado é inválido")
     private String cpf;
 
     @Enumerated(EnumType.STRING)

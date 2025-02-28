@@ -1,6 +1,6 @@
 package TADS_SEM4_BACK_END.Baixada_Santista.dto;
 
-import TADS_SEM4_BACK_END.Baixada_Santista.Modelos.User;
+import TADS_SEM4_BACK_END.Baixada_Santista.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
