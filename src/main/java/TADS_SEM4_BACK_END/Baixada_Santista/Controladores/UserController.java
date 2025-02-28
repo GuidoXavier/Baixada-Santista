@@ -17,13 +17,15 @@ public class UserController {
         this.repository = repository;
     }
 
-    @GetMapping("/listarTodos")
-    public ResponseEntity<List<User>> listarUsuarios() {
-        return ResponseEntity.ok(repository.findAll());
-    }
+
     @PostMapping("/salvar")
     public ResponseEntity<User> salvarUsuario(@RequestBody User usuario) {
         return ResponseEntity.ok(repository.save(usuario));
+    }
+
+    @GetMapping("/listarTodos")
+    public ResponseEntity<List<User>> listarUsuarios() {
+        return ResponseEntity.ok(repository.findAll());
     }
 
 }
