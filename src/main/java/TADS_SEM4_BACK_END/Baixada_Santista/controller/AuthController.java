@@ -36,7 +36,7 @@ public class AuthController {
                 return ResponseEntity.status(401).body("Email ou senha inválido");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Emaio");
+            return ResponseEntity.status(401).body("Erro ao logar: " + e.getMessage());
         }
     }
 }
