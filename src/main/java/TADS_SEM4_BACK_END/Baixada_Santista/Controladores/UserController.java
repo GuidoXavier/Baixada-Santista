@@ -18,11 +18,11 @@ public class UserController {
         this.repository = repository;
     }
 
-
     @PostMapping("/salvar")
     public ResponseEntity<User> salvarUsuario(@RequestBody User usuario) {
         return ResponseEntity.ok(repository.save(usuario));
     }
+
 
     @GetMapping("/listarTodos")
     public ResponseEntity<List<User>> listarUsuarios() {
