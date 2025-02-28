@@ -14,11 +14,13 @@ public class UsuarioResponseDTO {
     private String nickname;
     private String email;
     private String role;
+    private String cpf;
 
     public UsuarioResponseDTO(User usuario) {
         this.id = usuario.getId();
         this.nickname = usuario.getNickname();
         this.email = usuario.getEmail();
+        this.cpf = usuario.getCpf();
         this.role = usuario.getRole().toString();
     }
 }
