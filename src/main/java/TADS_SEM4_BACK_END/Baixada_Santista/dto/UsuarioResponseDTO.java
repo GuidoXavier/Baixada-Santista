@@ -1,5 +1,6 @@
 package TADS_SEM4_BACK_END.Baixada_Santista.dto;
 
+import TADS_SEM4_BACK_END.Baixada_Santista.model.Roles;
 import TADS_SEM4_BACK_END.Baixada_Santista.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +23,11 @@ public class UsuarioResponseDTO {
         this.email = usuario.getEmail();
         this.cpf = usuario.getCpf();
         this.role = usuario.getRole().toString();
+    }
+
+    public UsuarioResponseDTO(Long id, String nickname, Roles role) {
+        this.id = id;
+        this.nickname = nickname;
+        this.role = role.toString();
     }
 }
