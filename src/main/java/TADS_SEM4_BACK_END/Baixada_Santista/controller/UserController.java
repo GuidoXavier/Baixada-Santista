@@ -5,6 +5,8 @@ import TADS_SEM4_BACK_END.Baixada_Santista.model.User;
 import TADS_SEM4_BACK_END.Baixada_Santista.repository.UserRepository;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioRequestDTO;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioResponseDTO;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,7 +56,7 @@ public class UserController {
                 novoUsuario.setRole(role);
             } catch (IllegalArgumentException e) {
                 //se o role fornecido não for válido, definir como USER (vai que né)
-                novoUsuario.setRole(Roles.USER);
+                novoUsuario.setRole(Roles.STOCKIST);
             }
 
             //e aqui defino o resto para padrão que é true
@@ -101,6 +103,10 @@ public class UserController {
                     return ResponseEntity.badRequest().body("CPF já cadastrado");
                 }
 
+                if(!validarCPF(requestDTO.getCpf())){
+                    return  ResponseEntity.badRequest().body("CPF inválido");
+                }
+
                 usuarioExistente.setNickname(requestDTO.getNickname());
                 usuarioExistente.setEmail(requestDTO.getEmail());
 
@@ -132,6 +138,16 @@ public class UserController {
             }
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    public boolean validarCPF(String CPF) {
+        CPFValidator validator = new CPFValidator();
+        try{
+            validator.assertValid(CPF);
+            return true;
+        } catch (InvalidStateException e) {
+            return false;
         }
     }
 }

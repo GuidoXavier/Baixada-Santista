@@ -4,6 +4,8 @@ import TADS_SEM4_BACK_END.Baixada_Santista.dto.AuthRequestDTO;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioResponseDTO;
 import TADS_SEM4_BACK_END.Baixada_Santista.model.Roles;
 import TADS_SEM4_BACK_END.Baixada_Santista.repository.UserRepository;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,7 @@ public class AuthController {
 //            return ResponseEntity.status(401).body("Erro no servidor: " + e.getMessage());
 //        }
 //    }
+
 
 }
 
