@@ -1,5 +1,6 @@
 package TADS_SEM4_BACK_END.Baixada_Santista.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class ImagemProduto {
 
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
+    @JsonIgnore
     private Produto produto;
 }
