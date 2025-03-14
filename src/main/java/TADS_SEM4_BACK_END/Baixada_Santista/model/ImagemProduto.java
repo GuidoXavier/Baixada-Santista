@@ -26,7 +26,6 @@ public class ImagemProduto {
     private boolean imagemPrincipal;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
     @JsonIgnore
     private Produto produto;
 }
