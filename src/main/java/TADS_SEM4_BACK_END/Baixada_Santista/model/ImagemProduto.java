@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Imagem-Produtos")
+@Entity
+@Table(name = "imagem-produtos")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor

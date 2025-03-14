@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "PRODUTOS")
-@Getter @Setter
+@Table(name = "produtos")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Produto {
 
 
@@ -25,10 +25,10 @@ public class Produto {
     @Column(length = 200)
     private String nomeProduto;
 
-    @Column (precision = 1, scale = 2)
+    @Column(precision = 1, scale = 2)
     private BigDecimal avaliacao;
 
-    @Column (length = 2000)
+    @Column(length = 2000)
     private String descricao;
 
     @Column
@@ -40,7 +40,7 @@ public class Produto {
     @Column
     private boolean ativo;
 
-    @OneToMany(mappedBy = "PRODUTOS", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemProduto> imagens;
 
 }
