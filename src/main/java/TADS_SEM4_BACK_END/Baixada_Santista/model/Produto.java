@@ -43,4 +43,7 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemProduto> imagens;
 
+    public List<ImagemProduto> getImagens() {
+        return imagens;
+    }
 }

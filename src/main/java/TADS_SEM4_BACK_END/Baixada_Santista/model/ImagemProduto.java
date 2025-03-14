@@ -27,4 +27,6 @@ public class ImagemProduto {
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
+
+
 }
