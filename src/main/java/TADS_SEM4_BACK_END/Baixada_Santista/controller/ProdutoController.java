@@ -61,7 +61,7 @@ public class ProdutoController {
                 imagens.add(imagem);
             }
             imagensRepository.saveAll(imagens);
-            return ResponseEntity.ok().body("Usuário salvo com sucesso");
+            return ResponseEntity.ok().body("Produto salvo com sucesso");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao salvar o usuário");
         }
