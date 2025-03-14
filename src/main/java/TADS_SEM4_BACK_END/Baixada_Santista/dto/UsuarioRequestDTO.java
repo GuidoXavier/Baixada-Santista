@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @Getter
 @Setter
 public class UsuarioRequestDTO {
-    private String nickname;
+    private String name;
     @CPF(message = "CPF invalido")
     private String cpf;
     private String email;

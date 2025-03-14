@@ -7,7 +7,6 @@ import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioRequestDTO;
 import TADS_SEM4_BACK_END.Baixada_Santista.dto.UsuarioResponseDTO;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class UserController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Object> cadastrarUsuario(@RequestBody UsuarioRequestDTO requestDTO) {
-        System.out.println("Recebido: " + requestDTO.getNickname() + ", " + requestDTO.getSenha());
+        System.out.println("Recebido: " + requestDTO.getName() + ", " + requestDTO.getSenha());
         try {
             //aqui eu verifico se o email existe ou não no banco
             if (repository.findByEmail(requestDTO.getEmail()).isPresent()) {
@@ -45,7 +44,7 @@ public class UserController {
 
             //crio o usuário
             User novoUsuario = new User();
-            novoUsuario.setName(requestDTO.getNickname());
+            novoUsuario.setName(requestDTO.getName());
             novoUsuario.setEmail(requestDTO.getEmail());
             novoUsuario.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
             novoUsuario.setCpf(requestDTO.getCpf());
@@ -107,7 +106,7 @@ public class UserController {
                     return  ResponseEntity.badRequest().body("CPF inválido");
                 }
 
-                usuarioExistente.setName(requestDTO.getNickname());
+                usuarioExistente.setName(requestDTO.getName());
                 usuarioExistente.setEmail(requestDTO.getEmail());
 
                 //mudo a senha apenas se for fornecida
