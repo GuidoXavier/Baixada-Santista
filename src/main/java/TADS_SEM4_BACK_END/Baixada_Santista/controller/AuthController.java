@@ -48,7 +48,7 @@ public class AuthController {
 
             if (passwordEncoder.matches(request.senha(),user.getSenha()) && user.getEmail().equals(request.email())) {
 
-                return ResponseEntity.ok().body(new UsuarioResponseDTO(user.getId(), user.getNickname(), user.getRole()));
+                return ResponseEntity.ok().body(new UsuarioResponseDTO(user.getId(), user.getName(), user.getRole()));
 
             } else {
                 return ResponseEntity.status(400).body("Email ou senha inválido");

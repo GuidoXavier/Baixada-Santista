@@ -25,7 +25,7 @@ public class ProdutoController {
 
     @GetMapping("/listarTodos")
     public ResponseEntity<Page<Produto>> lista(@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        var page = produtoRepository.findAllByAtivoTrue(pageable);
+        var page = produtoRepository.findAll(pageable);
         return ResponseEntity.ok(page);
     }
 }

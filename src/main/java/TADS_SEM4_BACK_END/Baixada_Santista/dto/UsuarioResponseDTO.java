@@ -19,7 +19,7 @@ public class UsuarioResponseDTO {
 
     public UsuarioResponseDTO(User usuario) {
         this.id = usuario.getId();
-        this.nickname = usuario.getNickname();
+        this.nickname = usuario.getName();
         this.email = usuario.getEmail();
         this.cpf = usuario.getCpf();
         this.role = usuario.getRole().toString();

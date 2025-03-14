@@ -45,7 +45,7 @@ public class UserController {
 
             //crio o usuário
             User novoUsuario = new User();
-            novoUsuario.setNickname(requestDTO.getNickname());
+            novoUsuario.setName(requestDTO.getNickname());
             novoUsuario.setEmail(requestDTO.getEmail());
             novoUsuario.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
             novoUsuario.setCpf(requestDTO.getCpf());
@@ -107,7 +107,7 @@ public class UserController {
                     return  ResponseEntity.badRequest().body("CPF inválido");
                 }
 
-                usuarioExistente.setNickname(requestDTO.getNickname());
+                usuarioExistente.setName(requestDTO.getNickname());
                 usuarioExistente.setEmail(requestDTO.getEmail());
 
                 //mudo a senha apenas se for fornecida
