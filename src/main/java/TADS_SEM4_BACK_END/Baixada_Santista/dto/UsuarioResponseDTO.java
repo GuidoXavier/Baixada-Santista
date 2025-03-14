@@ -12,22 +12,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UsuarioResponseDTO {
     private Long id;
-    private String nickname;
+    private String name;
     private String email;
     private String role;
     private String cpf;
 
     public UsuarioResponseDTO(User usuario) {
         this.id = usuario.getId();
-        this.nickname = usuario.getName();
+        this.name = usuario.getName();
         this.email = usuario.getEmail();
         this.cpf = usuario.getCpf();
         this.role = usuario.getRole().toString();
     }
 
-    public UsuarioResponseDTO(Long id, String nickname, Roles role) {
+    public UsuarioResponseDTO(Long id, String name, Roles role) {
         this.id = id;
-        this.nickname = nickname;
+        this.name = name;
         this.role = role.toString();
     }
 }
