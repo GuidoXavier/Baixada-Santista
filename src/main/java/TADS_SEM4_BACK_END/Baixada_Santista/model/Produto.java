@@ -25,7 +25,7 @@ public class Produto {
     @Column(length = 200)
     private String nomeProduto;
 
-    @Column(precision = 1, scale = 2)
+    @Column
     private BigDecimal avaliacao;
 
     @Column(length = 2000)
